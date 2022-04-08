@@ -1,0 +1,6 @@
+DROP DATABASE IF EXISTS campin;
+DROP USER IF EXISTS campinuser;
+
+CREATE DATABASE campin;
+CREATE USER campinuser WITH PASSWORD 'campin';
+GRANT ALL PRIVILEGES ON DATABASE campin TO campinuser;
