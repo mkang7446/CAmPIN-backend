@@ -15,8 +15,8 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(
         'users.User', related_name='posts', on_delete=models.CASCADE)
-    # photo = models.ImageField(
-    #     upload_to='images/', default='images/default.jpg', blank=True)
+    photo = models.ImageField(
+        upload_to='images/', default='images/default.webp', blank=True)
     category = models.CharField(
         max_length=20, choices=category_select, default='Talk Talk!')
 
