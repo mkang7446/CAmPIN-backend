@@ -1,5 +1,34 @@
 from rest_framework import serializers
-from .models import Post, Comment
+from .models import Campground, Review, Post, Comment
+
+
+class CampgroundSerializer(serializers.HyperlinkedModelSerializer):
+    reviews = serializers.HyperlinkedRelatedField(
+        view_name='review_detail', many=True, read_only=True)
+
+    campground_url = serializers.ModelSerializer.serializer_url_field(
+        view_name='campground_detail')
+
+    owner = serializers.ReadOnlyField(source='owner.username')
+
+    class Meta:
+        model = Campground
+        fields = ('id', 'name', 'body', 'date',
+                  'owner', 'reviews', 'location', 'campground_url', 'photo')
+
+
+class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+    campground = serializers.HyperlinkedRelatedField(
+        view_name='campground_detail', read_only=True)
+
+    campground_id = serializers.PrimaryKeyRelatedField(
+        source='campground', queryset=Campground.objects.all())
+
+    owner = serializers.ReadOnlyField(source='owner.username')
+
+    class Meta:
+        model = Review
+        fields = ('id', 'body', 'campground', 'campground_id', 'date', 'owner')
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):

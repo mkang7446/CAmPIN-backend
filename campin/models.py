@@ -9,6 +9,32 @@ category_select = (
 )
 
 
+class Campground(models.Model):
+    name = models.CharField(max_length=50)
+    body = models.CharField(max_length=500)
+    location = models.CharField(max_length=100)
+    date = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(
+        'users.User', related_name='campgrounds', on_delete=models.CASCADE)
+    photo = models.ImageField(
+        upload_to='images/', default='images/default.webp', blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Review(models.Model):
+    body = models.CharField(max_length=500)
+    campground = models.ForeignKey(
+        Campground, on_delete=models.CASCADE, related_name='reviews')
+    date = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(
+        'users.User', related_name='reviews', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.body
+
+
 class Post(models.Model):
     title = models.CharField(max_length=50)
     body = models.CharField(max_length=500)
