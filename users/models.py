@@ -9,7 +9,7 @@ class User(AbstractUser):
     avatar = models.CharField(max_length=500)
     date_joined = models.DateTimeField(auto_now_add=True)
 
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username', 'nickname']
     USERNAME_FIELD = 'email'
 
     def get_username(self):
