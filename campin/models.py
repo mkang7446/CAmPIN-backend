@@ -30,6 +30,7 @@ class Review(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(
         'users.User', related_name='reviews', on_delete=models.CASCADE)
+    # rate = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     def __str__(self):
         return self.body
