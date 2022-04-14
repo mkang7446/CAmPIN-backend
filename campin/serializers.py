@@ -13,7 +13,8 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'body', 'campground', 'campground_id', 'date', 'owner')
+        fields = ('id', 'body', 'campground',
+                  'campground_id', 'date', 'owner', 'rating')
 
 
 class CampgroundSerializer(serializers.HyperlinkedModelSerializer):
