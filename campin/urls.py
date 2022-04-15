@@ -28,4 +28,11 @@ urlpatterns = [
     # PUT localhost:8000/comments/:id
     # DELETE localhost:8000/comments/:id
     path('comments/<int:pk>', views.CommentDetail.as_view(), name='comment_detail'),
+    # GET localhost:8000/mycampins
+    # POST localhost:8000/mycampins
+    path('mycampins/', views.MycampinList.as_view(), name='mycampin_list'),
+    # PUT localhost:8000/mycampins/:id
+    # DELETE localhost:8000/mycampins/:id
+    path('mycampins/<int:pk>', views.MycampinDetail.as_view(),
+         name='mycampin_detail'),
 ]

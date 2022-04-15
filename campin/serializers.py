@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Campground, Review, Post, Comment
+from .models import Campground, Review, Post, Comment, Mycampin
 
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
@@ -63,3 +63,12 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         model = Post
         fields = ('id', 'title', 'body', 'date',
                   'owner', 'category', 'comments', 'post_url', 'photo')
+
+
+class MycampinSerializer(serializers.Serializer):
+
+    owner = serializers.ReadOnlyField(source='owner.username')
+
+    class Meta:
+        model = Mycampin
+        fields = ('id', 'body', 'date', 'owner')

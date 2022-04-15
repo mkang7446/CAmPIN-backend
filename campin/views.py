@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
-from .models import Campground, Review, Post, Comment
-from .serializers import CampgroundSerializer, ReviewSerializer, PostSerializer, CommentSerializer
+from .models import Campground, Review, Post, Comment, Mycampin
+from .serializers import CampgroundSerializer, ReviewSerializer, PostSerializer, CommentSerializer, MycampinSerializer
 from .permissions import IsOwnerOrReadOnly
 
 
@@ -61,4 +61,19 @@ class CommentList(generics.ListCreateAPIView):
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+
+class MycampinList(generics.ListCreateAPIView):
+    queryset = Mycampin.objects.all()
+    serializer_class = MycampinSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class MycampinDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Mycampin.objects.all()
+    serializer_class = MycampinSerializer
     permission_classes = [IsOwnerOrReadOnly]
