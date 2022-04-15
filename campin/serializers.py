@@ -65,7 +65,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
                   'owner', 'category', 'comments', 'post_url', 'photo')
 
 
-class MycampinSerializer(serializers.Serializer):
+class MycampinSerializer(serializers.ModelSerializer):
 
     owner = serializers.ReadOnlyField(source='owner.username')
 
